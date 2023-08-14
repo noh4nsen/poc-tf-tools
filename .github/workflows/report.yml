@@ -1,0 +1,31 @@
+name: reports
+
+on: [workflow_dispatch]
+
+jobs:
+    diff:
+        runs-on: ubuntu-latest
+        outputs:
+            modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+          - name: Go-diff
+            id: go-diff
+            uses: noh4nsen/go-diff@1.4.0
+            with:
+              head_branch: POC-001
+              base_branch: main
+    tf-lint-report:
+        runs-on: ubuntu-latest
+        outputs:
+            report: ${{ steps.tflint-report.outputs.tflint_report }}
+        needs: [diff]
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+          - name: TFLint Report
+            id: tflint-report
+            uses: noh4nsen/tflint-report@0.1.0
+            with:
+                modified_projects: ${{ needs.diff.outputs.modified_projects }}
