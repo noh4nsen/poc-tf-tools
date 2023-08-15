@@ -37,7 +37,7 @@ jobs:
         steps:
           - name: Checkout code
             uses: actions/checkout@v3
-          - name: TFLint Report
+          - name: Tfsec Report
             id: tflint-report
             uses: noh4nsen/tsec-report@0.1.0
             with:
