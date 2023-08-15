@@ -16,10 +16,11 @@ jobs:
             with:
               head_branch: POC-001
               base_branch: main
-    tflint-report:
+
+    tflint:
         runs-on: ubuntu-latest
         outputs:
-            report: ${{ steps.tflint-report.outputs.tflint_report }}
+            tflint_report: ${{ steps.tflint-report.outputs.tflint_report }}
         needs: [diff]
         steps:
           - name: Checkout code
@@ -29,24 +30,26 @@ jobs:
             uses: noh4nsen/tflint-report@0.3.0
             with:
                 modified_projects: ${{ needs.diff.outputs.modified_projects }}
-    tfsec-report:
+
+    tfsec:
         runs-on: ubuntu-latest
         outputs:
-            report: ${{ steps.tflint-report.outputs.tflint_report }}
+            tfsec_report: ${{ steps.tfsec-report.outputs.tfsec_report }}
         needs: [diff]
         steps:
           - name: Checkout code
             uses: actions/checkout@v3
           - name: Tfsec Report
-            id: tflint-report
+            id: tfsec-report
             uses: noh4nsen/tfsec-report@0.2.0
             with:
                 modified_projects: ${{ needs.diff.outputs.modified_projects }}
+
     print-report:
         runs-on: ubuntu-latest
-        needs: [tflint-report, tfsec-report]
+        needs: [tflint, tfsec]
         steps:
           - name: print reports
             run: |
-              echo ${{ needs.tflint_report.report }}
-              echo ${{ needs.tfsec_report.report }}
+              echo ${{ needs.tflint.outputs.tflint_report }}
+              echo ${{ needs.tfsec.outputs.tfsec_report }}
