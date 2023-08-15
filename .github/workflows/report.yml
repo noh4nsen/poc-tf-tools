@@ -51,6 +51,8 @@ jobs:
         steps:
           - name: print reports
             run: |
+              apt-get update
+              apt-get upgrade
               apt-get install jq -y
               echo "TFLINT REPORT:"
               echo ${{ needs.tflint.outputs.tflint_report }} | jq
