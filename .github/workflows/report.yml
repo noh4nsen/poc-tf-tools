@@ -52,6 +52,6 @@ jobs:
           - name: print reports
             run: |
               echo "TFLINT REPORT:"
-              echo ${{ toJson(needs.tflint.outputs.tflint_report) }}
+              echo ${{ fromJson(needs.tflint.outputs.tflint_report) }}
               echo "TFSEC REPORT:"
-              echo ${{ toJson(needs.tfsec.outputs.tfsec_report) }}
+              echo ${{ fromJson(needs.tfsec.outputs.tfsec_report) }}
