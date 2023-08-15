@@ -51,5 +51,8 @@ jobs:
         steps:
           - name: print reports
             run: |
-              echo ${{ needs.tflint.outputs.tflint_report }}
-              echo ${{ needs.tfsec.outputs.tfsec_report }}
+              apt-get install jq -y
+              echo "TFLINT REPORT:"
+              echo ${{ needs.tflint.outputs.tflint_report }} | jq
+              echo "TFSEC REPORT:"
+              echo ${{ needs.tfsec.outputs.tfsec_report }} | jq
