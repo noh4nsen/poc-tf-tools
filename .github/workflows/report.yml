@@ -29,3 +29,16 @@ jobs:
             uses: noh4nsen/tflint-report@0.3.0
             with:
                 modified_projects: ${{ needs.diff.outputs.modified_projects }}
+    tsec-report:
+        runs-on: ubuntu-latest
+        outputs:
+            report: ${{ steps.tflint-report.outputs.tflint_report }}
+        needs: [diff]
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+          - name: TFLint Report
+            id: tflint-report
+            uses: noh4nsen/tsec-report@0.1.0
+            with:
+                modified_projects: ${{ needs.diff.outputs.modified_projects }}
