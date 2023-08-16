@@ -55,7 +55,7 @@ jobs:
           uses: actions/checkout@v3
         - name: Checkov Report
           id: checkov-report
-          uses: noh4nsen/checkov-report@f4fddd54c319b4cff7576ec9de6d93c2a4933a75
+          uses: noh4nsen/checkov-report@8d7dd81268774c206d0ef3d760482490977b05e9
           with:
               modified_projects: ${{ needs.diff.outputs.modified_projects }}
 
