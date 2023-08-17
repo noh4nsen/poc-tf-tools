@@ -65,12 +65,9 @@ jobs:
         steps:
           - name: print reports
             run: |
-              apt-get update
-              apt-get upgrade
-              apt-get install jq -y
               echo "TFLINT REPORT:"
-              echo ${{ needs.tflint.outputs.tflint_report }} | jq
+              echo ${{ needs.tflint.outputs.tflint_report }}
               echo "TFSEC REPORT:"
-              echo ${{ needs.tfsec.outputs.tfsec_report }} | jq
+              echo ${{ needs.tfsec.outputs.tfsec_report }}
               echo "CHECKOV REPORT:"
-              echo ${{ needs.checkov.outputs.checkov_report }} | jq
+              echo ${{ needs.checkov.outputs.checkov_report }}
