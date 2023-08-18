@@ -61,7 +61,7 @@ jobs:
         steps:
           - name: Quality Report Aggregator
             id: quality-report-aggregator
-            uses: noh4nsen/quality-report-aggregator@e4aaa5a0ed454a1f3b0062d071955660bc4beaa1
+            uses: noh4nsen/quality-report-aggregator@cc027bfbb057a909b478fa650941b1ddfb71208b
             with:
               tflint_report: ${{ needs.tflint.outputs.tflint_report }}
               tfsec_report: ${{ needs.tfsec.outputs.tfsec_report }}
