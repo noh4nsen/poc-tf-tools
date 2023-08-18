@@ -66,8 +66,14 @@ jobs:
           - name: print reports
             run: |
               echo "TFLINT REPORT:"
-              echo "\${{ needs.tflint.outputs.tflint_report }}"
+              cat <<EOF 
+                ${{ needs.tflint.outputs.tflint_report }}
+              EOF
               echo "TFSEC REPORT:"
-              echo "\${{ needs.tfsec.outputs.tfsec_report }}"
+              cat <<EOF
+                ${{ needs.tfsec.outputs.tfsec_report }}
+              EOF
               echo "CHECKOV REPORT:"
-              echo "\${{ needs.checkov.outputs.checkov_report }}"
+              cat <<EOF
+                ${{ needs.checkov.outputs.checkov_report }}
+              EOF
