@@ -57,7 +57,7 @@ jobs:
                 modified_projects: ${{ needs.diff.outputs.modified_projects }}
     quality-report-aggregator:
         runs-on: ubuntu-latest
-        needs: [tflint, tfsec, checkot]
+        needs: [tflint, tfsec, checkov]
         steps:
           - name: Quality Report Aggregator
             id: quality-report-aggregator
