@@ -52,7 +52,7 @@ jobs:
             uses: actions/checkout@v3
           - name: Checkov Report
             id: checkov-report
-            uses: noh4nsen/checkov-report@ef36c462b23c051ab1961f7da07d23ac1996e09f
+            uses: noh4nsen/checkov-report@bc1eea78fddf58492d8ff1d146848229a10101e7
             with:
                 modified_projects: ${{ needs.diff.outputs.modified_projects }}
     quality-report-aggregator:
