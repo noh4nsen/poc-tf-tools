@@ -5,69 +5,10 @@ on: [workflow_dispatch]
 jobs:
     diff:
         runs-on: ubuntu-latest
-        outputs:
-            modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
         steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
-          - name: Go-diff
-            id: go-diff
-            uses: noh4nsen/go-diff@1.4.0
+          - name: Quality Report
+            id: quality-report
+            uses: noh4nsen/quality-report@b5b38eee81bc70c6ece6cb6e22ef81ed267ab469
             with:
               head_branch: POC-001
               base_branch: main
-    tflint:
-        runs-on: ubuntu-latest
-        outputs:
-            tflint_report: ${{ steps.tflint-report.outputs.tflint_report }}
-        needs: [diff]
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
-          - name: TFLint Report
-            id: tflint-report
-            uses: noh4nsen/tflint-report@0.5.0
-            with:
-                modified_projects: ${{ needs.diff.outputs.modified_projects }}
-    tfsec:
-        runs-on: ubuntu-latest
-        outputs:
-            tfsec_report: ${{ steps.tfsec-report.outputs.tfsec_report }}
-        needs: [diff]
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
-          - name: Tfsec Report
-            id: tfsec-report
-            uses: noh4nsen/tfsec-report@0.4.0
-            with:
-                modified_projects: ${{ needs.diff.outputs.modified_projects }}
-    checkov:
-        runs-on: ubuntu-latest
-        outputs:
-            checkov_report: ${{ steps.checkov-report.outputs.checkov_report }}
-        needs: [diff]
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
-          - name: Checkov Report
-            id: checkov-report
-            uses: noh4nsen/checkov-report@0.3.0
-            with:
-                modified_projects: ${{ needs.diff.outputs.modified_projects }}
-    quality-report-aggregator:
-        runs-on: ubuntu-latest
-        needs: [tflint, tfsec, checkov]
-        steps:
-          - name: Quality Report Aggregator
-            id: quality-report-aggregator
-            uses: noh4nsen/quality-report-aggregator@1.0.0
-            with:
-              tflint_report: ${{ needs.tflint.outputs.tflint_report }}
-              tfsec_report: ${{ needs.tfsec.outputs.tfsec_report }}
-              checkov_report: ${{ needs.checkov.outputs.checkov_report }}
-          - name: print
-            shell: bash
-            run: |
-              export report=${{ steps.quality-report-aggregator.outputs.report }}
-              echo -e "$report"
