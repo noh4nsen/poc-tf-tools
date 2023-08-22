@@ -1,31 +1,15 @@
 name: reports
 
-on: [workflow_dispatch]
+on: [pull_request]
 
 jobs:
     diff:
         runs-on: ubuntu-latest
-        outputs:
-            modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
         steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
-          - name: Go-diff
-            id: go-diff
-            uses: noh4nsen/go-diff@1.4.0
+          - name: Quality Report
+            id: quality-report
+            uses: noh4nsen/quality-report@ecff638eed22acf6a883d03b2d774a244124c07d
             with:
-              head_branch: POC-001
-              base_branch: main
-    tf-lint-report:
-        runs-on: ubuntu-latest
-        outputs:
-            report: ${{ steps.tflint-report.outputs.tflint_report }}
-        needs: [diff]
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
-          - name: TFLint Report
-            id: tflint-report
-            uses: noh4nsen/tflint-report@0.1.0
-            with:
-                modified_projects: ${{ needs.diff.outputs.modified_projects }}
+              github_token: ${{ secrets.GITHUB_TOKEN }}
+              head_branch: ${{ github.head_ref }}
+              base_branch: ${{ github.base_ref }}
