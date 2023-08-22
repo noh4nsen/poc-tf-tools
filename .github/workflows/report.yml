@@ -1,6 +1,6 @@
 name: reports
 
-on: [workflow_dispatch]
+on: [pull_request]
 
 jobs:
     diff:
@@ -10,5 +10,5 @@ jobs:
             id: quality-report
             uses: noh4nsen/quality-report@b5b38eee81bc70c6ece6cb6e22ef81ed267ab469
             with:
-              head_branch: POC-001
-              base_branch: main
+              head_branch: ${{ github.head_ref }}
+              base_branch: ${{ github.base_ref }}
