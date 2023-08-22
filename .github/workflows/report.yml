@@ -10,10 +10,10 @@ jobs:
             shell: bash
             run: |
               echo ${{ secrets.GITHUB_TOKEN }}
-              
+
           - name: Quality Report
             id: quality-report
             uses: noh4nsen/quality-report@1ca001e4a0e86dc6ddaba82aee7c65c069fb03c2
             with:
               head_branch: ${{ github.head_ref }}
-              base_branch: ${{ github.base_ref }}gh
+              base_branch: ${{ github.base_ref }}
