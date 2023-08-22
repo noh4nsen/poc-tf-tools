@@ -8,7 +8,7 @@ jobs:
         steps:
           - name: Quality Report
             id: quality-report
-            uses: noh4nsen/quality-report@b5b38eee81bc70c6ece6cb6e22ef81ed267ab469
+            uses: noh4nsen/quality-report@566c7588a54686d9d7e42e0f13d3addc9d213ede
             with:
               head_branch: ${{ github.head_ref }}
               base_branch: ${{ github.base_ref }}
