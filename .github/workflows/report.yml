@@ -6,10 +6,53 @@ jobs:
     diff:
         runs-on: ubuntu-latest
         steps:
-          - name: Quality Report
-            id: quality-report
-            uses: noh4nsen/quality-report@c59301ec282c896f74ac9f60405bfaef62d3eb25
+          - name: Checkout code
+            uses: actions/checkout@v3
+          - name: Go-diff
+            id: go-diff
+            uses: noh4nsen/go-diff@1.4.0
             with:
-              github_token: ${{ secrets.GITHUB_TOKEN }}
               head_branch: ${{ github.head_ref }}
               base_branch: ${{ github.base_ref }}
+          - name: Checkout code
+            uses: actions/checkout@v3
+          - name: TFLint Report
+            id: tflint-report
+            uses: noh4nsen/tflint-report@0.5.0
+            with:
+              modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
+          - name: Tfsec Report
+            id: tfsec-report
+            uses: noh4nsen/tfsec-report@0.4.0
+            with:
+              modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
+          - name: Checkov Report
+            id: checkov-report
+            uses: noh4nsen/checkov-report@0.3.0
+            with:
+              modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
+          - name: Quality Report Aggregator
+            id: quality-report-aggregator
+            uses: noh4nsen/quality-report-aggregator@1.0.0
+            with:
+              tflint_report: ${{ steps.tflint-report.outputs.tflint_report }}
+              tfsec_report: ${{ steps.tfsec-report.outputs.tfsec_report }}
+              checkov_report: ${{ steps.checkov-report.outputs.checkov_report }}
+          - name: print
+            shell: bash
+            run: |
+              export report=${{ steps.quality-report-aggregator.outputs.report }}
+              echo -e "$report"
+          - name: Comment Report
+            uses: actions/github-script@v6
+            with:
+              github-token: ${{ secrets.GITHUB_TOKEN }}
+              script: |
+                const output = `\`${{ steps.quality-report-aggregator.outputs.report }}\``;
+
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: output
+                })
