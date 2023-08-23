@@ -78,12 +78,9 @@ jobs:
             with:
               github-token: ${{ secrets.GITHUB_TOKEN }}
               script: |
-                const output = `
-                ${process.env.REPORT}
-                `;
                 await github.rest.issues.createComment({
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  body: output
+                  body: ${process.env.REPORT}
                 })
