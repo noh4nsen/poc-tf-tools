@@ -1,9 +1,7 @@
 name: reports
 
-on: [pull_request]
-
-permissions:
-  contents: write
+on:
+  pull_request:
 
 jobs:
     diff:
@@ -54,5 +52,5 @@ jobs:
                 const output = `\`${{ steps.quality-report-aggregator.outputs.report }}\``;
 
                 await github.rest.issues.createComment({
-                  body: 'teste'
+                  body: output
                 })
