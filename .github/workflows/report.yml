@@ -53,7 +53,7 @@ jobs:
               script: |
                 const output = `
                 \`\`\`\n
-                #{process.env.REPORT}
+                ${process.env.REPORT}
                 \`\`\`	
                 `;
 
