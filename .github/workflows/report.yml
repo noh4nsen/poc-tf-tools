@@ -33,7 +33,7 @@ jobs:
               modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
           - name: Quality Report Aggregator
             id: quality-report-aggregator
-            uses: noh4nsen/quality-report-aggregator@73bfc790c331bb4cc1266feb1f6dcca46962abef
+            uses: noh4nsen/quality-report-aggregator@3dc63619210ef226fac1b265248911d6eb3c827e
             with:
               tflint_report: ${{ steps.tflint-report.outputs.tflint_report }}
               tfsec_report: ${{ steps.tfsec-report.outputs.tfsec_report }}
