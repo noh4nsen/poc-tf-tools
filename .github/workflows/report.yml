@@ -18,7 +18,7 @@ jobs:
             uses: actions/checkout@v3
           - name: TFLint Report
             id: tflint-report
-            uses: noh4nsen/tflint-report@0cb38987ac8c2c94039f2411bbd0abef040f901d
+            uses: noh4nsen/tflint-report@6731f38fd8b5dc966ef4a168faf7ab0e6d381b94
             with:
               modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
           - name: Tfsec Report
