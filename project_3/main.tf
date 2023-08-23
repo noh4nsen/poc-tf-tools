@@ -11,7 +11,7 @@ terraform {
   backend "remote" {
     organization = "lab-acg"
     workspaces {
-      name = "test"
+      name = "test-2"
     }
   }
 }
