@@ -58,5 +58,8 @@ jobs:
                 `;
 
                 await github.rest.issues.createComment({
+                  issue_number: issueNumber,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
                   body: output
                 })
