@@ -23,12 +23,12 @@ jobs:
               modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
           - name: Tfsec Report
             id: tfsec-report
-            uses: noh4nsen/tfsec-report@2e2b041915d1c13d09062e28cf7f775753a119ef
+            uses: noh4nsen/tfsec-report@96322e49d596fa9aa7cb2a57b467aaba05e92cc7
             with:
               modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
           - name: Checkov Report
             id: checkov-report
-            uses: noh4nsen/checkov-report@7f0b542573e10a6e20fd78b37386a7637c36760e
+            uses: noh4nsen/checkov-report@5841f2e504b1dfc17a267c66c72f487b2054a1ad
             with:
               modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
           - name: Quality Report Aggregator
