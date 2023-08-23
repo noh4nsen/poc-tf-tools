@@ -49,7 +49,7 @@ jobs:
             with:
               github-token: ${{ secrets.GITHUB_TOKEN }}
               script: |
-                const output = "${{ steps.quality-report-aggregator.outputs.report }}";
+                const output = `${{ steps.quality-report-aggregator.outputs.report }}`;
 
                 await github.rest.issues.createComment({
                   body: output
