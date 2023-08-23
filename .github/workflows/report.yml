@@ -18,22 +18,22 @@ jobs:
             uses: actions/checkout@v3
           - name: TFLint Report
             id: tflint-report
-            uses: noh4nsen/tflint-report@0.5.0
+            uses: noh4nsen/tflint-report@de7791a807d7820e4934fb946c6a8616b1527e89
             with:
               modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
           - name: Tfsec Report
             id: tfsec-report
-            uses: noh4nsen/tfsec-report@0.4.0
+            uses: noh4nsen/tfsec-report@2e2b041915d1c13d09062e28cf7f775753a119ef
             with:
               modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
           - name: Checkov Report
             id: checkov-report
-            uses: noh4nsen/checkov-report@0.3.0
+            uses: noh4nsen/checkov-report@7f0b542573e10a6e20fd78b37386a7637c36760e
             with:
               modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
           - name: Quality Report Aggregator
             id: quality-report-aggregator
-            uses: noh4nsen/quality-report-aggregator@1.0.0
+            uses: noh4nsen/quality-report-aggregator@73bfc790c331bb4cc1266feb1f6dcca46962abef
             with:
               tflint_report: ${{ steps.tflint-report.outputs.tflint_report }}
               tfsec_report: ${{ steps.tfsec-report.outputs.tfsec_report }}
