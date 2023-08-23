@@ -34,7 +34,7 @@ jobs:
               modified_projects: ${{ steps.go-diff.outputs.modified_projects }}
           - name: Quality Report Aggregator
             id: quality-report-aggregator
-            uses: noh4nsen/quality-report-aggregator@1.0.0
+            uses: noh4nsen/quality-report-aggregator@3dc63619210ef226fac1b265248911d6eb3c827e
             with:
               tflint_report: ${{ steps.tflint-report.outputs.tflint_report }}
               tfsec_report: ${{ steps.tfsec-report.outputs.tfsec_report }}
@@ -43,7 +43,7 @@ jobs:
             shell: bash
             run: |
               export report=${{ steps.quality-report-aggregator.outputs.report }}
-              echo -e '$report'
+              echo -e "$report"
           - name: Comment Report
             uses: actions/github-script@v6
             env:
@@ -52,11 +52,8 @@ jobs:
               github-token: ${{ secrets.GITHUB_TOKEN }}
               script: |
                 const output = `
-                \`\`\`\n
                 ${process.env.REPORT}
-                \`\`\`	
                 `;
-
                 await github.rest.issues.createComment({
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
