@@ -43,13 +43,19 @@ jobs:
             shell: bash
             run: |
               export report=${{ steps.quality-report-aggregator.outputs.report }}
-              echo -e "$report"
+              echo -e '$report'
           - name: Comment Report
             uses: actions/github-script@v6
+            env:
+              REPORT: "REPORT:\n\n${{ steps.quality-report-aggregator.outputs.report }}"
             with:
               github-token: ${{ secrets.GITHUB_TOKEN }}
               script: |
-                const output = `${{ steps.quality-report-aggregator.outputs.report }}`;
+                const output = `
+                \`\`\`\n
+                #{process.env.REPORT}
+                \`\`\`	
+                `;
 
                 await github.rest.issues.createComment({
                   body: output
