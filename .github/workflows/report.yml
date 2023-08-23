@@ -45,11 +45,11 @@ jobs:
               export report=${{ steps.quality-report-aggregator.outputs.report }}
               echo -e "$report"
           - name: Comment Report
-            uses: actions/github-script@v6
+            uses: actions/github-script@0.9.0
             with:
               github-token: ${{ secrets.GITHUB_TOKEN }}
               script: |
-                const output = `\`${{ steps.quality-report-aggregator.outputs.report }}\``;
+                const output = `${{ steps.quality-report-aggregator.outputs.report }}`;
 
                 await github.rest.issues.createComment({
                   body: output
