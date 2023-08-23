@@ -47,12 +47,13 @@ jobs:
           - name: Comment Report
             uses: actions/github-script@v6
             env:
-              REPORT: "REPORT:\n\n${{ steps.quality-report-aggregator.outputs.report }}"
+              REPORT: "${{ steps.quality-report-aggregator.outputs.report }}"
             with:
               github-token: ${{ secrets.GITHUB_TOKEN }}
               script: |
+                let report = process.env.REPORT.replace(/[']/g, '');
                 const output = `
-                ${process.env.REPORT}
+                report
                 `;
                 await github.rest.issues.createComment({
                   issue_number: context.issue.number,
