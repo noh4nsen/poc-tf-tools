@@ -73,8 +73,6 @@ jobs:
               checkov_report: ${{ needs.checkov.outputs.checkov_report }}
           - name: Comment Report
             uses: actions/github-script@v6
-            env:
-              REPORT: "${{ steps.quality-report-aggregator.outputs.report }}"
             with:
               github-token: ${{ secrets.GITHUB_TOKEN }}
               script: |
@@ -82,5 +80,5 @@ jobs:
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  body: process.env.REPORT
+                  body: ${{ steps.quality-report-aggregator.outputs.report }}
                 })
