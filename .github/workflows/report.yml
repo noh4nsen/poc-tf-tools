@@ -49,11 +49,9 @@ jobs:
             with:
               github-token: ${{ secrets.GITHUB_TOKEN }}
               script: |
-                const output = `${{ steps.quality-report-aggregator.outputs.report }}`;
-
                 github.issues.createComment({
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  body: output
+                  body: "teste"
                 })
