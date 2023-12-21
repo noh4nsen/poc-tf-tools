@@ -5,8 +5,14 @@ on: [workflow_dispatch]
 jobs:
     print-variable:
         runs-on: ubuntu-latest
+        environment: test
 
         steps:
         - name: Print repository FGH variable
           run: |
                 echo "${{ vars.FGH }}"
+                echo "${{ vars.ABC }}"
+        
+        - name: Print environment test ABC variable
+          run: |
+                echo "${{ vars.ABC }}"
