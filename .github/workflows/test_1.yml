@@ -1,0 +1,12 @@
+name: Test Variables
+
+on: [workflow_dispatch]
+
+jobs:
+    print-variable:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Print repository FGH variable
+          run: |
+                echo "${{ vars.FGH }}"
