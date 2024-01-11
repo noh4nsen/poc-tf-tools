@@ -1,4 +1,5 @@
 terraform {
+  required_version = ">= 1.0" 
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
@@ -16,7 +17,7 @@ resource "docker_image" "nginx" {
 
 resource "docker_container" "nginx" {
   image = docker_image.nginx.image_id
-  name  = "test_nginx"
+  name  = "test_nginx_1"
   ports {
     internal = 80
     external = 8080
